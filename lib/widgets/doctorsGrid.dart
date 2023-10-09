@@ -1,15 +1,18 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test/providers/doctor_profile.dart';
 import 'package:test/screens/doctorDetail.dart';
-import '../models/doctors_temp.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:test/services/appointment_services.dart';
 
+// ignore: use_key_in_widget_constructors
 class DoctorsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var doctorProvider = Provider.of<DoctorProvider>(context);
-
+    AppointmentServices appointmentServices = AppointmentServices();
     return Container(
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.22,
@@ -23,8 +26,13 @@ class DoctorsGrid extends StatelessWidget {
           final doctor = doctorProvider.doctorsList[index];
 
           return GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(DoctorDetail.routeName);
+            onTap: () async {
+              appointmentServices.getDoctorInformation(
+                  context: context, userId: doctor.userId);
+              await Future.delayed(const Duration(seconds: 1));
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const DoctorDetail()),
+              );
             },
             child: Card(
               elevation: 3,
@@ -57,7 +65,13 @@ class DoctorsGrid extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text(doctor.specialization), // Display specialization
+                        SizedBox(
+                          width: 180,
+                          child: Text(
+                            doctor.specialization,
+                            softWrap: true,
+                          ),
+                        ),
                         const SizedBox(height: 16),
                         Row(
                           children: [
@@ -69,26 +83,27 @@ class DoctorsGrid extends StatelessWidget {
                             const Padding(
                               padding: EdgeInsets.only(left: 4, right: 6),
                               child: Text(
-                                "4.0", // You can replace with doctor's rating
+                                "4.0",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Text("195 Reviews"), // Display review count
+                            const Text("195 Reviews"),
                           ],
                         ),
                         const SizedBox(height: 10),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.watch_later,
                               color: Color(0xFF7165D6),
                               size: 20,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 4, right: 6),
+                              padding: const EdgeInsets.only(left: 4, right: 6),
                               child: Text(
-                                doctor.time, // Display doctor's time
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                doctor.time,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ],

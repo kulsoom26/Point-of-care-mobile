@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:test/models/allDoctors.dart';
+import 'package:test/providers/doctor_profile.dart';
 import 'package:test/screens/chatScreen.dart';
 import 'bookAppointment.dart';
 
@@ -16,6 +19,9 @@ class DoctorDetail extends StatefulWidget {
 class _DoctorDetailState extends State<DoctorDetail> {
   @override
   Widget build(BuildContext context) {
+    var doctorProvider = Provider.of<DoctorProvider>(context);
+    final List<Doctors> doctorList = doctorProvider.doctorList;
+    final doctor = doctorList[0];
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -63,15 +69,14 @@ class _DoctorDetailState extends State<DoctorDetail> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 35,
-                            backgroundImage:
-                                AssetImage("./assets/images/doctor_1.jpg"),
+                            backgroundImage: NetworkImage(doctor.image),
                           ),
                           const SizedBox(height: 10),
-                          const Text(
-                            "Dr. John Steve",
-                            style: TextStyle(
+                          Text(
+                            "Dr. ${doctor.name}",
+                            style: const TextStyle(
                               fontSize: 23,
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
@@ -79,9 +84,9 @@ class _DoctorDetailState extends State<DoctorDetail> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          const Text(
-                            "Pulmonologist",
-                            style: TextStyle(
+                          Text(
+                            doctor.specialization,
+                            style: const TextStyle(
                               color: Colors.white60,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Poppins',
@@ -150,13 +155,9 @@ class _DoctorDetailState extends State<DoctorDetail> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    const Text(
-                      "I have done MBBS. I have worked for 10 years is this field. I have done MBBS."
-                      " I have worked for 10 years is this field. I have done MBBS. I have worked for 10 years is this field. "
-                      "I have done MBBS. I have worked for 10 years is this field. I have done MBBS. I have worked for 10 years is this field."
-                      "I have done MBBS. I have worked for 10 years is this field. I have done MBBS."
-                      "I have done MBBS. I have worked for 10 years is this field. I have done MBBS. I have worked for 10 years is this field.",
-                      style: TextStyle(
+                    Text(
+                      doctor.description,
+                      style: const TextStyle(
                         fontSize: 13,
                         color: Colors.black54,
                         fontFamily: 'Poppins',
@@ -290,15 +291,15 @@ class _DoctorDetailState extends State<DoctorDetail> {
                           size: 30,
                         ),
                       ),
-                      title: const Text(
-                        "10 years experience",
-                        style: TextStyle(
+                      title: Text(
+                        doctor.experience,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Poppins',
                         ),
                       ),
-                      subtitle: const Text(
-                        "pulmonologist",
+                      subtitle: Text(
+                        doctor.specialization,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -323,9 +324,9 @@ class _DoctorDetailState extends State<DoctorDetail> {
                           size: 30,
                         ),
                       ),
-                      title: const Text(
-                        "9:00 A.M - 4:00 P.M",
-                        style: TextStyle(
+                      title: Text(
+                        doctor.time,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Poppins',
                         ),
@@ -356,10 +357,10 @@ class _DoctorDetailState extends State<DoctorDetail> {
         ),
         child: Column(
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Consultation Fees",
                   style: TextStyle(
                     color: Colors.black54,
@@ -367,8 +368,8 @@ class _DoctorDetailState extends State<DoctorDetail> {
                   ),
                 ),
                 Text(
-                  "Rs 1500/-",
-                  style: TextStyle(
+                  "Rs ${doctor.fees}/-",
+                  style: const TextStyle(
                     color: Colors.black54,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

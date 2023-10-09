@@ -10,8 +10,10 @@ class Doctor {
   final String time;
   final String fees;
   final String image;
+  final String id;
 
   Doctor({
+    required this.id,
     required this.userId,
     required this.gender,
     required this.contact,
@@ -25,6 +27,7 @@ class Doctor {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'userId': userId,
       'gender': gender,
       'contact': contact,
@@ -39,6 +42,7 @@ class Doctor {
 
   factory Doctor.fromMap(Map<String, dynamic> map) {
     return Doctor(
+      id: map['_id'] ?? '',
       userId: map['userId'] ?? '',
       gender: map['gender'] ?? '',
       contact: map['contact'] ?? '',

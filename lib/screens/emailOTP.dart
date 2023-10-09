@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_const_constructors_in_immutables, use_build_context_synchronously, duplicate_ignore
+
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class EmailOtp extends StatefulWidget {
 
 class _EmailOTPState extends State<EmailOtp> {
   String otpPin = " ";
+  // ignore: unused_field
   bool _isLoading = false;
   EmailOTP myauth = EmailOTP();
 
@@ -25,6 +28,7 @@ class _EmailOTPState extends State<EmailOtp> {
       _isLoading = true;
     });
     if (await myauth.verifyOTP(otp: otp) == true) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("OTP is verified"),
       ));

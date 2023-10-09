@@ -1,7 +1,9 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:test/models/doctor.dart';
+import 'package:test/providers/doctor_profile.dart';
+import 'package:test/providers/user_provider.dart';
 
 import 'homeScreen.dart';
 import 'profile.dart';
@@ -10,6 +12,7 @@ import 'scheduledAppointment.dart';
 import 'setting.dart';
 
 import '../widgets/Drawer.dart';
+import '../services/appointment_services.dart';
 
 class TabsScreen extends StatefulWidget {
   static const routeName = '/tab-screen';
@@ -38,6 +41,39 @@ class _TabsScreenState extends State<TabsScreen> {
     'Messages',
     'Settings',
   ];
+  final AppointmentServices appointmentService = AppointmentServices();
+
+  void getUserAppointments(String userId) {
+    appointmentService.getUserAppointments(
+      context: context,
+      userId: userId,
+    );
+  }
+
+  void getDoctorAppointments(String userId) {
+    appointmentService.getDoctorAppointments(
+      context: context,
+      userId: userId,
+    );
+  }
+
+  void onTabChange(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+    final doctor = Provider.of<DoctorProvider>(context, listen: false).doctor;
+    if (user.role == 'Patient') {
+      if (index == 1) {
+        getUserAppointments(user.id);
+      }
+    }
+    if (user.role == 'Doctor') {
+      if (index == 1) {
+        getDoctorAppointments(doctor.id);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,11 +136,7 @@ class _TabsScreenState extends State<TabsScreen> {
                   ),
                 ],
                 selectedIndex: _selectedIndex,
-                onTabChange: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
+                onTabChange: onTabChange,
               ),
             ),
           ),

@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
 
 import 'dart:convert';
 import 'package:email_otp/email_otp.dart';
@@ -194,6 +194,7 @@ class AuthService {
   }) async {
     try {
       Doctor doctor = Doctor(
+        id: '',
         userId: userId,
         gender: gender,
         contact: contact,
@@ -309,7 +310,6 @@ class AuthService {
         },
       );
       var response = jsonDecode(res.body);
-      print(response);
       httpErrorHandle(
         response: res,
         context: context,
@@ -409,9 +409,6 @@ class AuthService {
       required String gender}) async {
     try {
       final navigator = Navigator.of(context);
-      print(
-        name,
-      );
       http.Response res = await http.post(
         Uri.parse('${ConstantUri.uri}/api/updateDoctor'),
         body: jsonEncode({
@@ -526,7 +523,6 @@ class AuthService {
     required String email,
   }) async {
     try {
-      final navigator = Navigator.of(context);
       http.Response res = await http.post(
         Uri.parse('${ConstantUri.uri}/api/deleteAccount'),
         body: jsonEncode({
@@ -561,10 +557,10 @@ class AuthService {
     }
   }
 
-  void getDoctor({required BuildContext context}) async {
+  void getDoctors({required BuildContext context}) async {
     try {
       http.Response res = await http.get(
-        Uri.parse('${ConstantUri.uri}/api/getDoctor'),
+        Uri.parse('${ConstantUri.uri}/api/user/getAllDoctors'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

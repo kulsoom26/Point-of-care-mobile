@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, file_names, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test/providers/doctor_profile.dart';
@@ -43,7 +45,7 @@ class _ProfileDataState extends State<ProfileData> {
               children: <Widget>[
                 Icon(
                   Icons.account_circle_outlined,
-                  color: Color(0xFF8587dc),
+                  color: const Color(0xFF8587dc),
                   size: deviceSize.width * 0.07,
                 ),
                 Container(
@@ -77,7 +79,7 @@ class _ProfileDataState extends State<ProfileData> {
               children: <Widget>[
                 Icon(
                   Icons.email_outlined,
-                  color: Color(0xFF8587dc),
+                  color: const Color(0xFF8587dc),
                   size: deviceSize.width * 0.07,
                 ),
                 Container(
@@ -111,7 +113,7 @@ class _ProfileDataState extends State<ProfileData> {
               children: <Widget>[
                 Icon(
                   Icons.group,
-                  color: Color(0xFF8587dc),
+                  color: const Color(0xFF8587dc),
                   size: deviceSize.width * 0.07,
                 ),
                 Container(
@@ -145,7 +147,7 @@ class _ProfileDataState extends State<ProfileData> {
               children: <Widget>[
                 Icon(
                   Icons.phone_enabled,
-                  color: Color(0xFF8587dc),
+                  color: const Color(0xFF8587dc),
                   size: deviceSize.width * 0.07,
                 ),
                 Container(
@@ -181,7 +183,7 @@ class _ProfileDataState extends State<ProfileData> {
                 children: <Widget>[
                   Icon(
                     Icons.group,
-                    color: Color(0xFF8587dc),
+                    color: const Color(0xFF8587dc),
                     size: deviceSize.width * 0.07,
                   ),
                   Container(
@@ -217,7 +219,7 @@ class _ProfileDataState extends State<ProfileData> {
                 children: <Widget>[
                   Icon(
                     Icons.app_registration_rounded,
-                    color: Color(0xFF8587dc),
+                    color: const Color(0xFF8587dc),
                     size: deviceSize.width * 0.07,
                   ),
                   Container(
@@ -253,7 +255,7 @@ class _ProfileDataState extends State<ProfileData> {
                 children: <Widget>[
                   Icon(
                     Icons.app_registration_rounded,
-                    color: Color(0xFF8587dc),
+                    color: const Color(0xFF8587dc),
                     size: deviceSize.width * 0.07,
                   ),
                   Container(
@@ -289,7 +291,7 @@ class _ProfileDataState extends State<ProfileData> {
                 children: <Widget>[
                   Icon(
                     Icons.badge,
-                    color: Color(0xFF8587dc),
+                    color: const Color(0xFF8587dc),
                     size: deviceSize.width * 0.07,
                   ),
                   Container(
@@ -325,7 +327,7 @@ class _ProfileDataState extends State<ProfileData> {
                 children: <Widget>[
                   Icon(
                     Icons.money,
-                    color: Color(0xFF8587dc),
+                    color: const Color(0xFF8587dc),
                     size: deviceSize.width * 0.07,
                   ),
                   Container(
@@ -361,7 +363,7 @@ class _ProfileDataState extends State<ProfileData> {
                 children: <Widget>[
                   Icon(
                     Icons.watch_later_outlined,
-                    color: Color(0xFF8587dc),
+                    color: const Color(0xFF8587dc),
                     size: deviceSize.width * 0.07,
                   ),
                   Container(

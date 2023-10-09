@@ -1,26 +1,21 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
-import 'package:test/models/allDoctors.dart';
-import 'package:test/providers/doctor_profile.dart';
-import 'package:test/providers/user_provider.dart';
-import 'package:test/screens/tabScreen.dart';
+import 'package:test/providers/appointment_provider.dart';
 import 'package:test/services/appointment_services.dart';
 
-class BookAppointment extends StatefulWidget {
-  static const routeName = '/book-appointment';
-  const BookAppointment({super.key});
+class RescheduleAppointment extends StatefulWidget {
+  RescheduleAppointment({super.key});
+  static const routeName = '/reschedule-appointment';
 
   @override
-  State<BookAppointment> createState() => _BookAppointmentState();
+  State<RescheduleAppointment> createState() => _RescheduleAppointmentState();
 }
 
-class _BookAppointmentState extends State<BookAppointment> {
+class _RescheduleAppointmentState extends State<RescheduleAppointment> {
   String selectedAge = '';
   List<String> age = [
     "0-10",
@@ -42,9 +37,10 @@ class _BookAppointmentState extends State<BookAppointment> {
 
   final AppointmentServices appointmentService = AppointmentServices();
 
-  void addAppointment(String userId, String doctorId) {
-    appointmentService.addAppointment(
+  void updateAppointment(String id, String userId, String doctorId) {
+    appointmentService.updateAppointment(
       context: context,
+      id: id,
       userId: userId,
       doctorId: doctorId,
       gender: radioButtonItem,
@@ -61,11 +57,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    var doctorProvider = Provider.of<DoctorProvider>(context);
-    final user = Provider.of<UserProvider>(context).user;
-    final List<Doctors> doctorList = doctorProvider.doctorList;
-    final doctor = doctorList[0];
-    String time = doctor.time;
+    String time = '9:00 A.M - 9:00 P.M';
 
     DateTime parseTime(String timeStr) {
       final parts = timeStr.split(' ');
@@ -88,15 +80,14 @@ class _BookAppointmentState extends State<BookAppointment> {
 
     List<String> timeList = [];
 
-// Generate time slots
     while (startTime.isBefore(endTime)) {
       timeList.add(DateFormat.jm().format(startTime));
       startTime = startTime.add(const Duration(minutes: 30));
     }
-
-// Add the end time
     timeList.add(DateFormat.jm().format(endTime));
-
+    var appointmentProvider =
+        Provider.of<AppointmentProvider>(context).singleAppointmentData;
+    var appointment = appointmentProvider[0];
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -527,7 +518,8 @@ class _BookAppointmentState extends State<BookAppointment> {
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
                       onPressed: () {
-                        addAppointment(user.id, doctor.userId);
+                        updateAppointment(appointment.id, appointment.userId,
+                            appointment.doctorId);
                       },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.zero,

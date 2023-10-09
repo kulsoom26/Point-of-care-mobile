@@ -5,7 +5,6 @@ import 'package:test/providers/doctor_profile.dart';
 import 'package:test/providers/patient_profile.dart';
 import 'package:test/providers/user_provider.dart';
 import 'package:test/screens/appointment.dart';
-import 'package:test/screens/setting.dart';
 import 'package:test/screens/tabScreen.dart';
 import 'package:test/services/auth_services.dart';
 

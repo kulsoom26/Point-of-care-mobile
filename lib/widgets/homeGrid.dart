@@ -95,7 +95,7 @@ class _HomeGridState extends State<HomeGrid> {
                 if (_items[index].title == 'Appointment') {
                   final AuthService authService = AuthService();
 
-                  authService.getDoctor(context: context);
+                  authService.getDoctors(context: context);
 
                   Navigator.of(context).push(
                     MaterialPageRoute(

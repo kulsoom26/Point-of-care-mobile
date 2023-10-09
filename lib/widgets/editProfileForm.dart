@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:test/providers/doctor_profile.dart';
 import 'package:test/providers/patient_profile.dart';
 import 'package:test/providers/user_provider.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:test/services/auth_services.dart';
 
 class EditProfileForm extends StatefulWidget {
@@ -95,6 +94,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
     final deviceSize = MediaQuery.of(context).size;
+    // ignore: prefer_typing_uninitialized_variables
     var type;
     if (user.role == 'Doctor') {
       type = Provider.of<DoctorProvider>(context).doctor;

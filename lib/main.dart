@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test/providers/appointment_provider.dart';
 import 'package:test/providers/doctor_profile.dart';
 import 'package:test/providers/patient_profile.dart';
 import 'package:test/providers/user_provider.dart';
 import 'package:test/screens/addUserDetail.dart';
 import 'package:test/screens/passwordReset.dart';
+import 'package:test/screens/rescheduleAppointment.dart';
 import 'package:test/screens/scheduledAppointment.dart';
 import 'package:test/screens/MessageListScreen.dart';
 import 'package:test/screens/appointment.dart';
@@ -16,7 +18,6 @@ import 'package:test/services/auth_services.dart';
 import './screens/tabScreen.dart';
 import './screens/homeScreen.dart';
 import './screens/profile.dart';
-import 'helper/users.dart';
 import './screens/diagnosis.dart';
 import './screens/aboutUs.dart';
 import './screens/nearbyDoctors.dart';
@@ -39,6 +40,9 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (_) => PatientProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (_) => AppointmentProvider(),
     ),
   ], child: const MyApp()));
 }
@@ -84,9 +88,6 @@ class _MyAppState extends State<MyApp> {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<Users>(
-          create: (ctx) => Users(),
-        ),
         ChangeNotifierProvider<DiseaseLabels>(
           create: (ctx) => DiseaseLabels(),
         ),
@@ -121,7 +122,7 @@ class _MyAppState extends State<MyApp> {
           UploadScreen.routeName: (ctx) => const UploadScreen(),
           ResultScreen.routeName: (ctx) => const ResultScreen(),
           ReportScreen.routeName: (ctx) => ReportScreen(),
-          EditProfile.routeName: (ctx) => EditProfile(),
+          EditProfile.routeName: (ctx) => const EditProfile(),
           AppointmentScreen.routeName: (ctx) => const AppointmentScreen(),
           SymptomsScreen.routeName: (ctx) => const SymptomsScreen(),
           DoctorDetail.routeName: (ctx) => const DoctorDetail(),
@@ -130,6 +131,7 @@ class _MyAppState extends State<MyApp> {
           ScheduleScreen.routeName: (ctx) => const ScheduleScreen(),
           AddUserDetail.routeName: (ctx) => const AddUserDetail(),
           PasswordReset.routeName: (ctx) => const PasswordReset(),
+          RescheduleAppointment.routeName: (ctx) => RescheduleAppointment(),
         },
       ),
     );

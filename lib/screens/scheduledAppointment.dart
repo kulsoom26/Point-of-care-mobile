@@ -1,6 +1,7 @@
-// ignore_for_file: file_names, use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:test/providers/user_provider.dart';
+import 'package:test/services/appointment_services.dart';
 import 'package:test/widgets/canceledAppointment.dart';
 import 'package:test/widgets/completedAppointment.dart';
 import '../widgets/upcomingAppointmentList.dart';
@@ -27,7 +28,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     final textScaleFactor = MediaQuery.of(context).textScaleFactor;
-
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(top: deviceSize.height * 0.05),
@@ -97,29 +97,27 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                           _buttonIndex = 1;
                         });
                       },
-                      child: Center(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: deviceSize.height * 0.015,
-                            horizontal: deviceSize.width * 0.05,
-                          ),
-                          decoration: BoxDecoration(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: deviceSize.height * 0.015,
+                          horizontal: deviceSize.width * 0.05,
+                        ),
+                        decoration: BoxDecoration(
+                          color: _buttonIndex == 1
+                              ? Theme.of(context).primaryColor
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          "Completed",
+                          style: TextStyle(
+                            fontSize: 13 * textScaleFactor,
+                            fontWeight: FontWeight.w500,
+                            fontFamily:
+                                'Poppins', // Set fontFamily to 'Poppins'
                             color: _buttonIndex == 1
-                                ? Theme.of(context).primaryColor
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            "Completed",
-                            style: TextStyle(
-                              fontSize: 13 * textScaleFactor,
-                              fontWeight: FontWeight.w500,
-                              fontFamily:
-                                  'Poppins', // Set fontFamily to 'Poppins'
-                              color: _buttonIndex == 1
-                                  ? Colors.white
-                                  : Colors.black38,
-                            ),
+                                ? Colors.white
+                                : Colors.black38,
                           ),
                         ),
                       ),
@@ -142,12 +140,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          "Canceled",
+                          "Cancelled",
                           style: TextStyle(
                             fontSize: 13 * textScaleFactor,
                             fontWeight: FontWeight.w500,
-                            fontFamily:
-                                'Poppins', // Set fontFamily to 'Poppins'
+                            fontFamily: 'Poppins',
                             color: _buttonIndex == 2
                                 ? Colors.white
                                 : Colors.black38,
@@ -159,7 +156,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 ),
               ),
             ),
-            SizedBox(height: deviceSize.height * 0.03),
+            SizedBox(height: deviceSize.height * 0.01),
             _scheduleWidgets[_buttonIndex],
           ],
         ),
